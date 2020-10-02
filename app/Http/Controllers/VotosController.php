@@ -13,10 +13,8 @@ class VotosController extends Controller
      */
     public function index()
     {
-        $votos = Votos::latest()->paginate(5);
-
-        return view('votos.index', compact('votos'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+        $votos = Votos::all();
+        return view('index', compact('votos'));
     }
 
     /**
@@ -47,7 +45,7 @@ class VotosController extends Controller
 
         Votos::create($request->all());
 
-        return redirect()->route('votos.index')
+        return redirect()->route('index')
             ->with('success', 'Cadastro efetuado com sucesso.');
     }
 
@@ -57,9 +55,9 @@ class VotosController extends Controller
      * @param  \App\Models\Votos  $voto
      * @return \Illuminate\Http\Response
      */
-    public function show(Votos $voto)
+    public function show(Votos $votos)
     {
-        return view('votos.show', compact('votos'));
+        return view('show', compact('votos'));
     }
 
     /**
@@ -68,9 +66,12 @@ class VotosController extends Controller
      * @param  \App\Models\Votos  $voto
      * @return \Illuminate\Http\Response
      */
-    public function edit(Votos $voto)
+    public function edit(Votos $votos)
+    
     {
-        return view('votos.edit', compact('votos'));
+        $votos = Votos::findOrFail($id);
+
+        return view('edit', compact('votos'));
     }
     /**
      * Update the specified resource in storage.
@@ -79,7 +80,7 @@ class VotosController extends Controller
      * @param  \App\Models\Votos  $voto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Votos $voto)
+    public function update(Request $request, Votos $votos)
     {
         $request->validate([
             'name' => 'required',
@@ -89,9 +90,9 @@ class VotosController extends Controller
             'apoio' => 'required'
         ]);
 
-        $voto->update($request->all());
+        Votos::whereId($id)->update($validatedData);
 
-        return redirect()->route('votos.index')
+        return redirect()->route('index')
             ->with('success', 'Cadastro atualizado com sucesso');
     }
     /**
@@ -100,11 +101,12 @@ class VotosController extends Controller
      * @param  \App\Models\Votos  $voto
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Votos $voto)
+    public function destroy(Votos $votos)
     {
-        $voto->delete();
+        
+        $votos = Votos::findOrFail($id);
+        $votos->delete();
 
-        return redirect()->route('voto.index')
-            ->with('success', 'Cadastro excuido com sucesso.');
+        return redirect('/votos')->with('success', 'Cadastro excluido');
     }
 }

@@ -13,5 +13,5 @@ class Votos extends Model
     protected $table = 'votos';
     public $timestamps = true;
 
-    protected $fillable = ['nome', 'sobrenome', 'segmento', 'vinculo', 'whatsapp', 'rua', 'num', 'bairro', 'apoio' ];
+    protected $fillable = ['nome', 'segmento', 'vinculo', 'whatsapp', 'endereco', 'apoio' ];
 }
