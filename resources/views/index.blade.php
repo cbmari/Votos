@@ -13,50 +13,31 @@
   }
 
 </style>
-<div class="card uper">
-  <div class="card-header">
-    <h4>Cadastro de Apoiadores - Intenção de voto.</h4>
-    <div class="btn-group" role="group" aria-label="Basic example">
-      <button type="button" class="btn btn-secondary">Editar</button>
-      <button type="button" class="btn btn-secondary">Excuir</button>
+  <div class="col-lg-12 margin-tb">
+      <div class="pull-left">
+          <h2>Cadastro de Apoiadores - Intenção de voto. </h2>
+      </div>
+      <div class="pull-right">
+          <a class="btn btn-success" href="{{ route('votos.create') }}" title="Create a project"> <i class="fas fa-plus-circle"></i>
+              </a>
+      </div>
   </div>
-  </div>
-<div class="uper">
-  @if(session()->get('success'))
-    <div class="alert alert-success">
-      {{ session()->get('success') }}  
-    </div><br />
-  @endif
-  <table class="table">
-    <thead class="thead-light">
-      <tr>
-        <th scope="col">Nome</th>
-        <th scope="col">Vínculo</th>
-        <th scope="col"> Whatsapp</th>
-        <th colspan="2" >Endereço</th>  
-        <th scope="col" width="10">Apoio</th>                     
-      </tr>
-    </tbody> 
-    </thead>
-  </table>
-<div>
+</div>
 
-  <body>
-    <!-- Chart's container -->
-    <div id="chart" style="height: 300px;"></div>
-    <!-- Charting library -->
-    <script src="https://unpkg.com/chart.js@2.9.3/dist/Chart.min.js"></script>
-    <!-- Chartisan -->
-    <script src="https://unpkg.com/@chartisan/chartjs@^2.1.0/dist/chartisan_chartjs.umd.js"></script>
-    <!-- Your application script -->
-    <script>
-      const chart = new Chartisan({
-        el: '#chart',
-        url: 'https://chartisan.dev/chart/example.json',
-        // You can also pass the data manually instead of the url:
-        // data: { ... }
-      })
-    </script>
-  </body>
-</html>
-@endsection
+@if ($message = Session::get('success'))
+  <div class="alert alert-success">
+      <p>{{ $message }}</p>
+  </div>
+@endif
+
+<table class="table table-bordered table-responsive-lg">
+  <tr>
+      <th>Nome</th>
+      <th>Vínculo</th>
+      <th>Whatsapp</th>
+      <th>Endereço</th>
+      <th>Apoio</th>
+      <th width="280px">Ações</th>
+  </tr>
+  
+</table>

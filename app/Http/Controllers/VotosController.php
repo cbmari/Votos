@@ -1,9 +1,7 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Votos;
-
 use Illuminate\Http\Request;
 
 class VotosController extends Controller
@@ -13,13 +11,13 @@ class VotosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-        public function index()
-{
-        $data = Votos::all();
-        $columns = DB::getSchemaBuilder()->getColumnListing("votos");
-        return view("index", compact("data", "columns"));
-        
-}
+    public function index()
+    {
+        $votos = Votos::latest()->paginate(5);
+
+        return view('votos.index', compact('votos'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -28,7 +26,7 @@ class VotosController extends Controller
      */
     public function create()
     {
-        return view('create');
+        return view('votos.create');
     }
 
     /**
@@ -39,85 +37,74 @@ class VotosController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'nome' => 'required|max:255', 
-            'sobrenome' => 'required|max:255',
-            'vinculo' => 'required|max:255',
-            'segmento' => 'required|',          
-            'whatsapp' => 'required|numeric',
-            'rua' => 'required',
-            'num' => 'required|numeric',
-            'bairro' => 'required|max:255',
-            'apoio' => 'required|max:255',
+        $request->validate([
+            'name' => 'required',
+            'vinculo' => 'required',
+            'whatsapp' => 'required',
+            'endereço' => 'required',
+            'apoio' => 'required'
         ]);
-        $show = Votos::create($validatedData);
-   
-        return redirect('')->with('success', 'Dados foram salvos!');
+
+        Votos::create($request->all());
+
+        return redirect()->route('votos.index')
+            ->with('success', 'Cadastro efetuado com sucesso.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Votos  $voto
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Votos $voto)
     {
-       
+        return view('votos.show', compact('votos'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Votos  $voto
      * @return \Illuminate\Http\Response
      */
-
-    public function edit($id)
-        {
-                $cadastros = Votos::findOrFail($id);
-        
-                return view('edit', compact('cadastros'));
-        }
-    
-
+    public function edit(Votos $voto)
+    {
+        return view('votos.edit', compact('votos'));
+    }
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Votos  $voto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Votos $voto)
     {
-        $validatedData = $request->validate([
-            'nome' => 'required|max:255', 
-            'sobrenome' => 'required|max:255',
-            'vinculo' => 'required|max:255',
-            'segmento' => 'required|',          
-            'whatsapp' => 'required|numeric',
-            'rua' => 'required|numeric',
-            'num' => 'required|numeric',
-            'bairro' => 'required|max:255',
-            'apoio' => 'required|max:255',
+        $request->validate([
+            'name' => 'required',
+            'vinculo' => 'required',
+            'whatsapp' => 'required',
+            'endereço' => 'required',
+            'apoio' => 'required'
         ]);
-        $show = Votos::update($validatedData);
-   
-        return redirect('')->with('success', 'Dados foram atualizados!');
-    }
 
+        $voto->update($request->all());
+
+        return redirect()->route('votos.index')
+            ->with('success', 'Cadastro atualizado com sucesso');
+    }
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Votos  $voto
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Votos $voto)
     {
-        
-        $cadastro = Votos::findOrFail($id);
-        $cadastro->delete();
+        $voto->delete();
 
-        return redirect('/coronas')->with('success', 'Cadastro foi excluido');
+        return redirect()->route('voto.index')
+            ->with('success', 'Cadastro excuido com sucesso.');
     }
 }

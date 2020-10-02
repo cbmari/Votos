@@ -16,15 +16,10 @@ class CreateVotosTable extends Migration
         Schema::create('votos', function (Blueprint $table) {
             
             $table->id();
-            $table->integer('cadastro');
             $table->string('nome');
-            $table->string('sobrenome');
-            $table->string('vinculo');
-            $table->string('segmento');
+            $table->string('vínculo');
             $table->string('whatsapp');
-            $table->string('rua');
-            $table->string('num');
-            $table->string('bairro');
+            $table->string('endereco');
             $table->string('apoio');
             $table->timestamps();
         });
