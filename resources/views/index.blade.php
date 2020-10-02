@@ -18,7 +18,7 @@
           <h2>Cadastro de Apoiadores - Intenção de voto. </h2>
       </div>
       <div class="pull-right">
-          <a class="btn btn-success" href="{{ route('votos.create') }}" title="Create a project"> <i class="fas fa-plus-circle"></i>
+          <a class="btn btn-success" href="{{ route('create') }}" title="Create a project"> <i class="fas fa-plus-circle"></i>
               </a>
       </div>
   </div>
