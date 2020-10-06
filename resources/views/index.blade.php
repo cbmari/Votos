@@ -1,3 +1,4 @@
+@extends('layout')
 @section('content')
 <style>
   .uper {
@@ -23,7 +24,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($cadastros as $cadastro)
+        @foreach($testes as $cadastro)
         <tr>
             <td>{{$cadastro->id}}</td>
             <td>{{$cadastro->nome}}</td>
@@ -31,9 +32,9 @@
             <td>{{$cadastro->endereco}}</td>
             <td>{{$cadastro->whatsapp}}</td>
             <td>{{$cadastro->apoio}}</td>
-            <td><a href="{{ route('testes.edit', $case->id)}}" class="btn btn-primary">Edit</a></td>
+            <td><a href="{{ route('testes.edit', $cadastro->id)}}" class="btn btn-primary">Edit</a></td>
             <td>
-                <form action="{{ route('testes.destroy', $case->id)}}" method="post">
+                <form action="{{ route('testes.destroy', $cadastro->id)}}" method="post">
                   @csrf
                   @method('DELETE')
                   <button class="btn btn-danger" type="submit">Delete</button>

@@ -15,9 +15,9 @@ class TesteController extends Controller
      */
     public function index()
     {
-        $cadastros = Teste::all();
+        $testes = Teste::all();
 
-        return view('index', compact('cadastros'));
+        return view('index', compact('testes'));
     }
 
     /**
@@ -48,7 +48,7 @@ class TesteController extends Controller
         ]);
         $show = Teste::create($validatedData);
    
-        return redirect('')->with('success', 'Dados foram salvos!');
+        return redirect('/testes')->with('success', 'Dados foram salvos!');
     }
 
     /**
@@ -59,7 +59,7 @@ class TesteController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -70,9 +70,9 @@ class TesteController extends Controller
      */
     public function edit($id)
     {
-        $cadastros = Teste::findOrFail($id);
+        $testes = Teste::findOrFail($id);
 
-        return view('edit', compact('cadastros'));
+        return view('edit', compact('testes'));
     }
 
     /**
@@ -93,7 +93,7 @@ class TesteController extends Controller
 
         Teste::whereId($id)->update($validatedData);
 
-        return redirect('/testes')->with('success', 'Corona Case Data is successfully updated');
+        return redirect('/testes')->with('success', 'Dados atualizados com sucesso!');
     }
 
     /**
@@ -104,9 +104,9 @@ class TesteController extends Controller
      */
     public function destroy($id)
     {
-        $cadastros = Teste::findOrFail($id);
-        $cadastros->delete();
+        $testes = Teste::findOrFail($id);
+        $testes->delete();
 
-        return redirect('/testes')->with('success', 'Corona Case Data is successfully deleted');
+        return redirect('/testes')->with('success', 'Cadastro excluído com sucesso!');
     }
 }

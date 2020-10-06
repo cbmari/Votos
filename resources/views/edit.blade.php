@@ -20,30 +20,30 @@
         </ul>
       </div><br />
     @endif
-      <form method="post" action="{{ route('coronas.update', $testes->id ) }}">
+      <form method="post" action="{{ route('testes.update', $testes->id ) }}">
           <div class="form-group">
               @csrf
               @method('PATCH')
               <label for="nome">Nome:</label>
-              <input type="text" class="form-control" name="nome" value="{{ $cadastros->nome }}"/>
+              <input type="text" class="form-control" name="nome" value="{{ $testes->nome }}"/>
           </div>
           <div class="form-group">
               <label for="vinculo">Vinculo :</label>
-              <textarea rows="5" columns="5" class="form-control" name="vinculo">{{ $cadastros->vinculo }}</textarea>
+              <textarea rows="1" columns="5" class="form-control" name="vinculo">{{ $testes->vinculo }}</textarea>
           </div>
           <div class="form-group">
               <label for="endereco">Endereço :</label>
-              <input type="text" class="form-control" name="endereco" value="{{ $cadastros->endereco }}"/>
+              <input type="text" class="form-control" name="endereco" value="{{ $testes->endereco }}"/>
           </div>
           <div class="form-group">
             <label for="whatsapp">Whatsapp :</label>
-            <input type="text" class="form-control" name="whatsapp" value="{{ $cadastros->whatsapp }}"/>
+            <input type="text" class="form-control" name="whatsapp" value="{{ $testes->whatsapp }}"/>
         </div>
         <div class="form-group">
             <label for="apoio">Apoio :</label>
-            <input type="text" class="form-control" name="apoio" value="{{ $cadastros->apoio }}"/>
+            <input type="text" class="form-control" name="apoio" value="{{ $testes->apoio }}"/>
         </div>
-          <button type="submit" class="btn btn-primary">Update Data</button>
+          <button type="submit" class="btn btn-primary">Atualizar</button>
       </form>
   </div>
 </div>
