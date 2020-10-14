@@ -19,7 +19,7 @@ class CreateTestesTable extends Migration
             $table->string('vinculo');
             $table->string('endereco');
             $table->string('whatsapp');
-            $table->string('apoio');
+            $table->integer('apoio');
             $table->timestamps();
         });
     }

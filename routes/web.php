@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TesteController;
+use App\Models\Teste;
 
+use function GuzzleHttp\Promise\all;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,3 +21,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::resource('testes', 'TesteController');
+Route::get('/admin/statistic',function(){
+    $montly = Teste::table('testes')
+    ->select(Teste::raw('apoio(total) as total'))
+    ->groupBy(Teste::raw('DAY(created_at) DESC'));
+    return view('admin.statistika.index',compact('montly'));
+});

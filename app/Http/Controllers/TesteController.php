@@ -39,15 +39,15 @@ class TesteController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nome' => 'required|max:255', 
+            'nome' => 'required|max:255',
             'vinculo' => 'required|max:255',
             'endereco' => 'required|max:255',
-            'whatsapp' => 'required|numeric',          
+            'whatsapp' => 'required|numeric',
             'apoio' => 'required',
-            
+
         ]);
         $show = Teste::create($validatedData);
-   
+
         return redirect('/testes')->with('success', 'Dados foram salvos!');
     }
 
@@ -59,7 +59,6 @@ class TesteController extends Controller
      */
     public function show($id)
     {
-
     }
 
     /**
@@ -85,12 +84,13 @@ class TesteController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'nome' => 'required|max:255', 
+            'nome' => 'required|max:255',
             'vinculo' => 'required|max:255',
             'endereco' => 'required|max:255',
-            'whatsapp' => 'required|numeric',          
-            'apoio' => 'required',]);
-
+            'whatsapp' => 'required|numeric',
+            'apoio' => 'required',
+        ]);
+        
         Teste::whereId($id)->update($validatedData);
 
         return redirect('/testes')->with('success', 'Dados atualizados com sucesso!');
@@ -108,5 +108,11 @@ class TesteController extends Controller
         $testes->delete();
 
         return redirect('/testes')->with('success', 'Cadastro excluído com sucesso!');
+    }
+
+    public function ChartApoio(Teste $testes)
+    {
+        $testes = Teste::pluck('votos')->select('apoio')->get();
+        return $testes;
     }
 }
